@@ -9,6 +9,7 @@ class FlatAdmin(admin.ModelAdmin):
     list_display = ['town', 'address', 'price', 'new_building', 'construction_year']
     list_editable = ['new_building']
     list_filter = ['new_building', 'rooms_number', 'has_balcony']
+    raw_id_fields = ['liked_by']
 
 
 class ComplaintAdmin(admin.ModelAdmin):
