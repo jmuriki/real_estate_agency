@@ -5,20 +5,20 @@ import phonenumbers
 
 
 def normalize_numbers(apps, schema_editor):
-	Flat = apps.get_model('property', 'Flat')
-	for flat in Flat.objects.all():
-		number = flat.owners_phonenumber
-		parsed_number = phonenumbers.parse(number, "RU")
-		if phonenumbers.is_possible_number(parsed_number) and \
-				phonenumbers.is_valid_number(parsed_number):
-			normalized_number = phonenumbers.format_number(
-				parsed_number,
-				phonenumbers.PhoneNumberFormat.INTERNATIONAL,
-			)
-			flat.owner_pure_phone = normalized_number
-		else:
-			flat.owner_pure_phone = ""
-		flat.save()
+    Flat = apps.get_model('property', 'Flat')
+    for flat in Flat.objects.all():
+        number = flat.owners_phonenumber
+        parsed_number = phonenumbers.parse(number, "RU")
+        if phonenumbers.is_possible_number(parsed_number) and \
+                phonenumbers.is_valid_number(parsed_number):
+            normalized_number = phonenumbers.format_number(
+                parsed_number,
+                phonenumbers.PhoneNumberFormat.INTERNATIONAL,
+            )
+            flat.owner_pure_phone = normalized_number
+        else:
+            flat.owner_pure_phone = ""
+        flat.save()
 
 
 class Migration(migrations.Migration):
@@ -28,5 +28,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-    	migrations.RunPython(normalize_numbers),
+        migrations.RunPython(normalize_numbers),
     ]
